@@ -24,7 +24,8 @@ import {AgWordCloudModule, AgWordCloudData} from 'angular4-word-cloud';
     TagCloudModule,
     AgWordCloudModule.forRoot(),
     RouterModule.forRoot([
-      { path: 'page1', component: Page1Component }
+      { path: 'page1', component: Page1Component },
+      { path: 'stock_details', component: StockDetailsComponent },
     ]),
     BrowserAnimationsModule
   ],
