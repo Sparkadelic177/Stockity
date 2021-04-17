@@ -20,7 +20,6 @@ export class WebsocketService {
   }
 
   sendMessage(message: object): string{
-    debugger
     if(this.ws.readyState === this.socketIsOpen){
       this.ws.send(JSON.stringify({'type':'subscribe', 'symbol': 'BINANCE:BTCUSDT'}))
       return `send to the server ${message}`

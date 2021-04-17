@@ -8,6 +8,8 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import { WebsocketService } from "../websocket.service";
 import { Subscription } from "rxjs";
+import { StockDetailsService } from "../stock-details.service"
+declare const TradingView: any;
 
 @Component({
   selector: "app-stock-details",
@@ -20,23 +22,43 @@ export class StockDetailsComponent implements OnInit {
   liveTrades: Array<object> = [];
   wsSubscription: Subscription;
   status;
+  ticker = 'APPL';
+  positiveSentimentScore = 0;
+  negativeSentimentScore = 0;
 
   constructor(
+    private _stockService: StockDetailsService,
     private wsService: WebsocketService,
     @Inject(PLATFORM_ID) private platformId,
     private zone: NgZone
   ) {}
 
   ngOnInit() {
-    this.wsSubscription = this.wsService
-      .createOberservableSocket(
-        `wss://ws.finnhub.io?token=${environment.api}`,
-        { type: "subscribe", symbol: "AAPL" }
-      )
-      .subscribe(
-        (data) => this.addToGraph(data), //reciving
-        (err) => console.log(err)
-      );
+    const positiveBar = document.getElementById("positive")
+    const negativeBar = document.getElementById("negative")
+    this._stockService.callSentimentScores().subscribe(
+      data=>
+      {
+        console.log("success",data)
+        this.negativeSentimentScore = Math.floor(10 * data["Negative Score"])
+        this.positiveSentimentScore = Math.floor(10 * data["Positive Score"])
+        positiveBar.style.width = `${this.positiveSentimentScore}px`
+        negativeBar.style.width = `${this.negativeSentimentScore}px`
+      },
+      err => {
+        console.log(err)
+      }
+    )
+
+    // this.wsSubscription = this.wsService
+    //   .createOberservableSocket(
+    //     `wss://ws.finnhub.io?token=${environment.api}`,
+    //     { type: "subscribe", symbol: "AAPL" }
+    //   )
+    //   .subscribe(
+    //     (data) => this.addToGraph(data), //reciving
+    //     (err) => console.log(err)
+    //   );
   }
 
   addToGraph(data) {
@@ -52,7 +74,7 @@ export class StockDetailsComponent implements OnInit {
       });
     }
     this.chart.data = this.liveTrades
-    console.log(info);
+    // console.log(info);
   }
 
   sendMessageToServer(message: object) {
@@ -72,6 +94,23 @@ export class StockDetailsComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+
+
+    new TradingView.widget({
+      width: "100%",
+      height: 500,
+      symbol: "BINANCE:BTCUSDT",
+      interval: "D",
+      timezone: "Etc/UTC",
+      theme: "light",
+      style: "1",
+      locale: "in",
+      toolbar_bg: "#f1f3f6",
+      enable_publishing: false,
+      allow_symbol_change: true,
+      container_id: "tradingview_71d31",
+    });
+
     // Chart code goes in here
     this.browserOnly(() => {
       am4core.useTheme(am4themes_animated);
@@ -79,19 +118,6 @@ export class StockDetailsComponent implements OnInit {
       let chart = am4core.create("chartdiv", am4charts.XYChart);
 
       chart.paddingRight = 20;
-
-      // let data = [];
-      // let visits = 10;
-      // for (let i = 1; i < 366; i++) {
-      //   visits += Math.round(
-      //     (Math.random() < 0.5 ? 1 : -1) * Math.random() * 10
-      //   );
-      //   data.push({
-      //     date: new Date(2018, 0, i),
-      //     name: "name" + i,
-      //     value: visits,
-      //   });
-      // }
 
       chart.data = this.liveTrades;
 

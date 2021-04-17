@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TagCloudModule } from 'angular-tag-cloud-module';
 import {AgWordCloudModule, AgWordCloudData} from 'angular4-word-cloud';
+import { HttpClientModule} from '@angular/common/http'
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import {AgWordCloudModule, AgWordCloudData} from 'angular4-word-cloud';
     Page1Component
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     TagCloudModule,
