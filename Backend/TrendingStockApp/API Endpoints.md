@@ -17,3 +17,6 @@ Install requirements.txt
 
 6. Ticker Sentiment Data,
 `/ticker/<ticker_name>/sentiment` 
+
+6. Ticker Chart,
+`/ticker/<ticker_name>/chart` 
