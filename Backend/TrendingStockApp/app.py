@@ -1,6 +1,6 @@
 import flask
 from lxml import html 
-from flask import request, jsonify, Response
+from flask import request, jsonify, Response, render_template
 import pandas as pd
 import json
 import yfinance as yf
@@ -40,6 +40,10 @@ def ticker_sustainability(ticker_name):
     ticker = yf.Ticker(ticker_name)
     sus_df = ticker.sustainability
     return jsonify(sus_df.to_dict()['Value'])
+
+@app.route('/ticker/<string:ticker_name>/chart', methods=['GET'])
+def ticker_chart(ticker_name):
+    return render_template('chart.html', ticker_name=ticker_name)
 
 @app.route('/ticker/<string:ticker_name>/recommendations', methods=['GET'])
 def ticker_recommendations(ticker_name):
