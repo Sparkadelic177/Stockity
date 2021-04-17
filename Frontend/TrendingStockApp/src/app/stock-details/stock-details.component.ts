@@ -6,22 +6,56 @@ import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import { WebsocketService } from "../websocket.service";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-stock-details",
   templateUrl: "./stock-details.component.html",
   styleUrls: ["./stock-details.component.css"],
-  providers: [WebsocketService]
+  providers: [WebsocketService],
 })
 export class StockDetailsComponent implements OnInit {
   private chart: am4charts.XYChart;
-  private stocks = [ "t.appl" ]
+  private stocks = ["t.appl"];
+  messageFromServer: string;
+  wsSubscription: Subscription;
+  status;
 
-  constructor(private wsService: WebsocketService, @Inject(PLATFORM_ID) private platformId, private zone: NgZone) { }
-
-  ngOnInit() {
-    this.wsService.subscribe(this.stocks)
+  constructor(
+    private wsService: WebsocketService,
+    @Inject(PLATFORM_ID) private platformId,
+    private zone: NgZone
+  ) {
+    this.wsSubscription = this.wsService
+      .createOberservableSocket(
+        "wss://ws.finnhub.io?token=",
+        {'type':'subscribe', 'symbol': 'AAPL'}
+      )
+      .subscribe(
+        (data) => {console.log(data)}, //reciving
+        (err) => console.log(err)
+      )
   }
+
+  sendMessageToServer(message: object) {
+    this.status = this.wsService.sendMessage({'type':'subscribe', 'symbol': 'AAPL'});
+  }
+
+  closeSocket() {
+    this.wsSubscription.unsubscribe(); //Closing
+    this.status = "this socket is closed";
+  }
+
+  sendCrendtials() {
+    const data = {
+      action: "auth",
+      key: "AK59OB8NLQQRX23RMKUJ",
+      secret: "FjAw9bXWY42J5JjdKaD9qupKQOvp2sMdIDBpc4wp",
+    };
+    this.sendMessageToServer(data);
+  }
+
+  ngOnInit() {}
 
   // sendMsg() {
   //   console.log("new message from client to websocket: ", this.stock);
