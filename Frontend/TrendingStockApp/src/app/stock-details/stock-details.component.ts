@@ -5,16 +5,28 @@ import { isPlatformBrowser } from "@angular/common";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+import { WebsocketService } from "../websocket.service";
 
 @Component({
   selector: "app-stock-details",
   templateUrl: "./stock-details.component.html",
   styleUrls: ["./stock-details.component.css"],
+  providers: [WebsocketService]
 })
-export class StockDetailsComponent {
+export class StockDetailsComponent implements OnInit {
   private chart: am4charts.XYChart;
+  private stocks = [ "t.appl" ]
 
-  constructor(@Inject(PLATFORM_ID) private platformId, private zone: NgZone) {}
+  constructor(private wsService: WebsocketService, @Inject(PLATFORM_ID) private platformId, private zone: NgZone) { }
+
+  ngOnInit() {
+    this.wsService.subscribe(this.stocks)
+  }
+
+  // sendMsg() {
+  //   console.log("new message from client to websocket: ", this.stock);
+  //   this.stockService.stocks.next(this.stock);
+  // }
 
   // Run the function only in the browser
   browserOnly(f: () => void) {
@@ -54,7 +66,7 @@ export class StockDetailsComponent {
 
       let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
       valueAxis.tooltip.disabled = true;
-      valueAxis.renderer.minWidth = 35;
+      valueAxis.renderer.minWidth = 20;
 
       let series = chart.series.push(new am4charts.LineSeries());
       series.dataFields.dateX = "date";
