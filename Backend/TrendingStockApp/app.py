@@ -41,6 +41,11 @@ def ticker_sustainability(ticker_name):
     sus_df = ticker.sustainability
     return jsonify(sus_df.to_dict()['Value'])
 
+@app.route('/ticker/<string:ticker_name>/chart', methods=['GET'])
+def ticker_chart(ticker_name):
+    return jsonify(ticker_name)
+    # render_template('chart.html', ticker_name='ticker_name')
+
 @app.route('/ticker/<string:ticker_name>/recommendations', methods=['GET'])
 def ticker_recommendations(ticker_name):
     ticker = yf.Ticker(ticker_name)
