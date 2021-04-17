@@ -11,7 +11,7 @@ export class WebsocketService {
     return new Observable((observer) => {
       this.ws.onopen = () => this.sendMessage(data);
 
-      this.ws.onmessage = (event) => {console.log(event); observer.next(event.data)};
+      this.ws.onmessage = (event) => {observer.next(event.data)};
 
       this.ws.onerror = (event) => observer.error(event);
 
@@ -22,7 +22,7 @@ export class WebsocketService {
   sendMessage(message: object): string{
     debugger
     if(this.ws.readyState === this.socketIsOpen){
-      this.ws.send(JSON.stringify({'type':'subscribe', 'symbol': 'GME'}))
+      this.ws.send(JSON.stringify({'type':'subscribe', 'symbol': 'BINANCE:BTCUSDT'}))
       return `send to the server ${message}`
     }else{
       return 'Message was not send - the socket is closed'
