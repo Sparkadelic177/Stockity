@@ -87,7 +87,7 @@ def ticker_tweets(ticker_name):
     tweets = tw.Cursor(api.search,
               q=search_words,
               result_type='popular',
-              lang="en",).items(10)
+              lang="en",).items(5)
 
     tweets_list = []
 

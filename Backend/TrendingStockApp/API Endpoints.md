@@ -1,4 +1,32 @@
-Install requirements.txt
+## Installation
+
+##### Initialize a virtual environment
+
+Windows:
+```
+$ python -m venv venv
+$ venv\Scripts\activate.bat
+```
+
+Unix/MacOS:
+```
+$ python -m venv venv
+$ source venv/bin/activate
+```
+##### Install the dependencies
+
+```
+$ pip install -r requirements.txt
+```
+
+##### Running the app
+
+```
+$ python app.py
+```
+
+
+## API Endpoints
 
 1. Get trending Reddit stocks,
 `/trending/reddit` 
