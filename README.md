@@ -1,5 +1,6 @@
 # Stockity
-Find Stocks that are trending on social media
+
+Stockity provides a brilliant amalgamation of technical analysis on stocks and the social media sentiment regarding them. Find the most trending stocks on Social Media and their sentiment!
 
 # Backend
 
