@@ -29,7 +29,7 @@ import { NgxTweetModule } from "ngx-tweet";
     AgWordCloudModule.forRoot(),
     FormsModule,
     RouterModule.forRoot([
-      { path: 'page1', component: Page1Component },
+      { path: '', component: Page1Component },
       { path: 'stock_details/:ticker', component: StockDetailsComponent },
     ]),
     BrowserAnimationsModule

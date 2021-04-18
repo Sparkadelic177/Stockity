@@ -3,6 +3,7 @@ import { CloudData, CloudOptions, TagCloudComponent } from 'angular-tag-cloud-mo
 import { AgWordCloudData, AgWordCloudDirective } from 'angular4-word-cloud';
 import {Router} from '@angular/router';
 import { Page1Service } from './page1.service';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-page1',
@@ -106,58 +107,78 @@ export class Page1Component implements OnInit {
 
   wordCloudUpdate() {
     console.log("wordCloudUpdate")
-    // let scores = [...this.dataLocal , ...this.dataTwitter]
-    this.dataLocal.forEach(element => {
-      
-        var score 
-        if(element["Reddit Score"] > 500) {
-          score = 500
-        } else {
-          score = element["Reddit Score"]
-        }
-        var obj = {
-          text: element.Ticker,
+    let companies = [...this.dataLocal , ...this.dataTwitter]
+    let uniqueTicker = {}
+    companies.forEach(company => {
+      let score = company["Reddit Score"] ? company["Reddit Score"] : company["Twitter Score"]
+      if (score > 500) score = 500
+      const ticker = company.Ticker
+      if(uniqueTicker[ticker]){
+        uniqueTicker[ticker].weight += score
+      }
+      else{
+        const obj = {
+          text: ticker,
           weight: score,
-          color: this.colors[this.count],
-          tooltip: 'Score:'+ element["Reddit Score"],
+          color: this.colors[Math.floor(Math.random() * this.colors.length)],
+          tooltip: 'Score: '+ score,
           external: true      
         }
-        // console.log(this.wordData)
-        this.data = [...this.data,obj]
-        if(this.count < 50) {
-          this.count += 1
-        } else {  
-          this.count = 0
-        }
+        uniqueTicker[ticker] = obj
+      }
+    })
+    this.data = Object.values(uniqueTicker)
+    // this.dataLocal.forEach(element => {
+      
+    //     var score 
+    //     if(element["Reddit Score"] > 500) {
+    //       score = 500
+    //     } else {
+    //       score = element["Reddit Score"]
+    //     }
+    //     var obj = {
+    //       text: element.Ticker,
+    //       weight: score,
+    //       color: this.colors[this.count],
+    //       tooltip: 'Score:'+ element["Reddit Score"],
+    //       external: true      
+    //     }
+    //     // console.log(this.wordData)
+    //     this.data = [...this.data,obj]
+    //     if(this.count < 50) {
+    //       this.count += 1
+    //     } else {  
+    //       this.count = 0
+    //     }
       
             
-    })
-    this.cdr.detectChanges()
-    this.dataTwitter.forEach(element => {
+    // })
+    // this.cdr.detectChanges()
+    // this.dataTwitter.forEach(element => {
       
-        var score 
-        if(element["Twitter Score"] > 500) {
-          score = 500
-        } else {
-          score = element["Twitter Score"]
-        }
-        var obj = {
-          text: element.Ticker,
-          weight: score,
-          color: this.colors[this.count],
-          tooltip: 'Score:'+ element["Twitter Score"]
+    //     var score 
+    //     if(element["Twitter Score"] > 500) {
+    //       score = 500
+    //     } else {
+    //       score = element["Twitter Score"]
+    //     }
+    //     var obj = {
+    //       text: element.Ticker,
+    //       weight: score,
+    //       color: this.colors[this.count],
+    //       tooltip: 'Score:'+ element["Twitter Score"]
           
-        }
-        // console.log(this.wordData)
-        this.data = [...this.data,obj]
-        if(this.count < 50) {
-          this.count += 1
-        } else {
-          this.count = 0
-        }
+    //     }
+    //     // console.log(this.wordData)
+    //     this.data = [...this.data,obj]
+    //     if(this.count < 50) {
+    //       this.count += 1
+    //     } else {
+    //       this.count = 0
+    //     }
             
       
-    })
+    // })
     setTimeout(() => {
       // this.word_cloud_chart.update()
       this.cdr.detectChanges()
