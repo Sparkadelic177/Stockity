@@ -28,7 +28,7 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     RouterModule.forRoot([
       { path: 'page1', component: Page1Component },
-      { path: 'stock_details', component: StockDetailsComponent },
+      { path: 'stock_details/:ticker', component: StockDetailsComponent },
     ]),
     BrowserAnimationsModule
   ],

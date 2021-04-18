@@ -27,6 +27,7 @@ export class StockDetailsComponent implements OnInit {
   negativeSentimentScore = 0;
   ticker = localStorage.getItem("ticker");
   private _newsUrl = `https://finnhub.io/api/v1/company-news?symbol=${this.ticker}&from=2021-03-01&to=2021-03-09&token=${environment.api}`
+  private _sentimentUrl = `http://localhost:5000/ticker/${this.ticker}/sentiment`
 
   constructor(
     private _stockService: StockDetailsService,
@@ -38,7 +39,7 @@ export class StockDetailsComponent implements OnInit {
   ngOnInit() {
     const positiveBar = document.getElementById("positive")
     const negativeBar = document.getElementById("negative")
-    this._stockService.callSentimentScores().subscribe(
+    this._stockService.callSentimentScores(this._sentimentUrl).subscribe(
       data=>
       {
         console.log("success",data)

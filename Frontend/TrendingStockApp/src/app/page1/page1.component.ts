@@ -152,13 +152,16 @@ export class Page1Component implements OnInit {
   clickF(data: CloudData){
     console.log('hey you clicked on',data.text)
     localStorage.setItem("ticker",data.text)
-    this.route.navigate(['/stock_details'])
+    this.route.navigate([`/stock_details/${data.text}`])
   }
 
   search() {
     console.log(this.searchValue)
     localStorage.setItem("ticker",this.searchValue)
+    this.route.navigate([`/stock_details/${this.searchValue}`])
   }
+
+
   
 
   // data: CloudData[] = [
