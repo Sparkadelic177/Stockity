@@ -14,4 +14,16 @@
     </div>
   </section>
 </section>
+<section class="newsParentSection">
+    <h2>News</h2>
+    <section class="newsSection">
+    <div *ngFor="let news of companyNews" class="newsBox">
+        <a href={{news.url}}>
+        <h3 class="newsTitle">{{news.headline}}</h3>
+        <img src={{news.image}} class="newsImage"/>
+        <p class="newsSummary">{{news.summary}}</p>
+    </a>
+    </div>
+</section>
+</section>
 <!-- TradingView Widget END -->

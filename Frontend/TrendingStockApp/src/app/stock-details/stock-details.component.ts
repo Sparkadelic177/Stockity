@@ -19,7 +19,8 @@ declare const TradingView: any;
 })
 export class StockDetailsComponent implements OnInit {
   private chart: am4charts.XYChart;
-  liveTrades: Array<object> = [];
+  private _newsUrl = `https://finnhub.io/api/v1/company-news?symbol=AAPL&from=2021-03-01&to=2021-03-09&token=${environment.api}`
+  companyNews: Array<object> = []; 
   wsSubscription: Subscription;
   status;
   ticker = 'APPL';
@@ -50,31 +51,30 @@ export class StockDetailsComponent implements OnInit {
       }
     )
 
-    // this.wsSubscription = this.wsService
-    //   .createOberservableSocket(
-    //     `wss://ws.finnhub.io?token=${environment.api}`,
-    //     { type: "subscribe", symbol: "AAPL" }
-    //   )
-    //   .subscribe(
-    //     (data) => this.addToGraph(data), //reciving
-    //     (err) => console.log(err)
-    //   );
+    this._stockService.callCompanyNews(this._newsUrl).subscribe(
+      data => {
+        this.companyNews = data
+      }
+    )
+
+    this.wsSubscription = this.wsService
+      .createOberservableSocket(
+        `wss://ws.finnhub.io?token=${environment.api}`,
+        { type: "subscribe", symbol: "AAPL" }
+      )
+      .subscribe(
+        (data) => this.addToGraph(data), //reciving
+        (err) => console.log(err)
+      );
+
+      
   }
 
   addToGraph(data) {
     const info = JSON.parse(data);
     if (info.data) {
-      const trades = info.data;
-      trades.forEach((trade, i) => {
-        this.liveTrades.push({
-          value: trade.p,
-          date: new Date(trade.t),
-          name: i,
-        });
-      });
+    console.log(info.data);
     }
-    this.chart.data = this.liveTrades
-    // console.log(info);
   }
 
   sendMessageToServer(message: object) {

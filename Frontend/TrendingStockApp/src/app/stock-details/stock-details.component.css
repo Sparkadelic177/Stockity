@@ -33,3 +33,40 @@
     color:white;
     text-align: center;
 }
+
+.newsSection{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.newsBox{
+    width: 350px;
+    text-align: center;
+    border: 1px solid black;
+    box-shadow: 5px 5px 5px black;
+    margin: 15px 0;
+}
+
+.newsBox:hover{
+    -webkit-transform: translateY(-5px);
+	transform: translateY(-5px);
+}
+
+.newsBox a {
+    text-decoration: none;
+}
+.newsImage{
+    width:200px;
+    height:200px;
+}
+
+.newsTitle{
+    color:black
+}
+
+.newsSummary {
+    color: grey;
+    font-size: smaller;
+    font-style: italic;
+}
