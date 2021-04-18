@@ -22,7 +22,7 @@ $ source venv/bin/activate
 ##### Install the dependencies
 
 ```
-cd Backend/TrendingStockApp
+$ cd Backend/TrendingStockApp
 $ pip install -r requirements.txt
 ```
 
