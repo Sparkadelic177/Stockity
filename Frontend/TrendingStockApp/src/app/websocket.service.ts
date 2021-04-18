@@ -21,7 +21,7 @@ export class WebsocketService {
 
   sendMessage(message: object): string{
     if(this.ws.readyState === this.socketIsOpen){
-      this.ws.send(JSON.stringify({'type':'subscribe', 'symbol': 'BINANCE:BTCUSDT'}))
+      this.ws.send(JSON.stringify({'type':'subscribe-new', 'symbol': 'BINANCE:BTCUSDT'}))
       return `send to the server ${message}`
     }else{
       return 'Message was not send - the socket is closed'

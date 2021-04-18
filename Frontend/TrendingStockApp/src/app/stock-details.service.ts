@@ -5,10 +5,15 @@ import { HttpClient} from '@angular/common/http';
   providedIn: 'root'
 })
 export class StockDetailsService {
- private _sentimentUrl = "http://localhost:5000/ticker/AAPL/sentiment"
+
+ 
   constructor(private _http: HttpClient)  {}
 
-  callSentimentScores(){
-    return this._http.get<any>(this._sentimentUrl);
+  callSentimentScores(url){
+    return this._http.get<any>(url);
+  }
+
+  callCompanyNews(url){
+    return this._http.get<any>(url);
   }
 }
