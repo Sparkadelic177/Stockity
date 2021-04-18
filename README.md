@@ -2,9 +2,9 @@
 
 Stockity provides a brilliant amalgamation of technical analysis on stocks and the social media sentiment regarding them. Find the most trending stocks on Social Media and their sentiment!
 
-![](https://ibb.co/wpw2vgn)
+![](https://i.ibb.co/BTrY13h/stockity2.png)
 
-![](https://ibb.co/TKNsBWQ)
+![](https://i.ibb.co/vsMSxXN/stockity1.png)
 
 # Backend
 
