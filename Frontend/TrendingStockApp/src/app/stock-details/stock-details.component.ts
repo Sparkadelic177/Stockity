@@ -19,7 +19,6 @@ declare const TradingView: any;
 })
 
 export class StockDetailsComponent implements OnInit {
-  private chart: am4charts.XYChart;
   companyNews: Array<object> = []; 
   wsSubscription: Subscription;
   status;
@@ -92,16 +91,16 @@ export class StockDetailsComponent implements OnInit {
       
   }
   tweetUrl = []
-  getTweets() {
-    console.log(this.tweets)
-    this.tweets.forEach(element => {
-      var url = element.url
-      url = url.split('/')
-      url = url[url.length -1]
-      this.tweetUrl.push(url)
+  // getTweets() {
+  //   console.log(this.tweets)
+  //   this.tweets.forEach(element => {
+  //     var url = element.url
+  //     url = url.split('/')
+  //     url = url[url.length -1]
+  //     this.tweetUrl.push(url)
 
-    });
-  }
+  //   });
+  // }
 
 
   sendMessageToServer(message: object) {

@@ -1,4 +1,4 @@
-<section class="chartSection">
+<section class="chartSection section" style="padding: 15px">
   <div class="tradingview-widget-container">
     <div id="tradingview_71d31"></div>
   </div>
@@ -11,8 +11,8 @@
   </section>
 </section>
 
-<section style="min-height: 80%;">
-  <h2>Top Tweets</h2>
+<section class="section" style="min-height: 80%; padding: 15px;">
+  <h2 style="margin-left: 15px; margin-bottom: -10px;">Top Tweets</h2>
   <div class="grid-container">
     <div class="grid-item" style="width: 50px;height: 50px;" *ngFor="let item of tweetUrl | slice:0:5;">
       <ngx-tweet tweetId={{item}}></ngx-tweet>
@@ -22,8 +22,8 @@
   
 </section>
 
-<section class="newsParentSeÎction">
-    <h2>News</h2>
+<section class="newsParentSection section" style="padding: 15px">
+    <h2 style="margin-left: 15px; margin-bottom: -10px;">News</h2>
   <section class="newsSection">
     <div *ngFor="let news of companyNews" class="newsBox">
       <a href="{{ news.url }}">

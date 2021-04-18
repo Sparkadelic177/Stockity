@@ -9,6 +9,6 @@ import {Router} from '@angular/router';
 export class AppComponent {
   constructor(private route: Router){}
   imageClick(){
-    this.route.navigate(["/page1"])
+    this.route.navigate([""])
   }
 }
