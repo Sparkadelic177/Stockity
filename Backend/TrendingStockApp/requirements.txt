@@ -21,3 +21,4 @@ tqdm==4.60.0
 urllib3==1.26.4
 Werkzeug==1.0.1
 yfinance==0.1.59
+tweepy
