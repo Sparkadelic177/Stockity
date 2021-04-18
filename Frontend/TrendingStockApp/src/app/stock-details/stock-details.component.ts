@@ -17,15 +17,16 @@ declare const TradingView: any;
   styleUrls: ["./stock-details.component.css"],
   providers: [WebsocketService],
 })
+
 export class StockDetailsComponent implements OnInit {
   private chart: am4charts.XYChart;
-  private _newsUrl = `https://finnhub.io/api/v1/company-news?symbol=AAPL&from=2021-03-01&to=2021-03-09&token=${environment.api}`
   companyNews: Array<object> = []; 
   wsSubscription: Subscription;
   status;
-  ticker = 'APPL';
   positiveSentimentScore = 0;
   negativeSentimentScore = 0;
+  ticker = localStorage.getItem("ticker");
+  private _newsUrl = `https://finnhub.io/api/v1/company-news?symbol=${this.ticker}&from=2021-03-01&to=2021-03-09&token=${environment.api}`
 
   constructor(
     private _stockService: StockDetailsService,
@@ -57,49 +58,36 @@ export class StockDetailsComponent implements OnInit {
       }
     )
 
+    //socket service
     this.wsSubscription = this.wsService
       .createOberservableSocket(
         `wss://ws.finnhub.io?token=${environment.api}`,
         { type: "subscribe", symbol: "AAPL" }
       )
       .subscribe(
-        (data) => this.addToGraph(data), //reciving
+        (data) => console.log(data), //reciving
         (err) => console.log(err)
       );
 
       
   }
 
-  addToGraph(data) {
-    const info = JSON.parse(data);
-    if (info.data) {
-    console.log(info.data);
-    }
-  }
 
   sendMessageToServer(message: object) {
     this.status = this.wsService.sendMessage({
       type: "subscribe",
       symbol: "AAPL",
     });
-  }
-
-  // Run the function only in the browser
-  browserOnly(f: () => void) {
-    if (isPlatformBrowser(this.platformId)) {
-      this.zone.runOutsideAngular(() => {
-        f();
-      });
-    }
+    console.log(this.status)
   }
 
   ngAfterViewInit() {
 
-
+    // Chart code goes in here
     new TradingView.widget({
       width: "100%",
       height: 500,
-      symbol: "BINANCE:BTCUSDT",
+      symbol: `NASDAQ:${this.ticker}`,
       interval: "D",
       timezone: "Etc/UTC",
       theme: "light",
@@ -109,46 +97,6 @@ export class StockDetailsComponent implements OnInit {
       enable_publishing: false,
       allow_symbol_change: true,
       container_id: "tradingview_71d31",
-    });
-
-    // Chart code goes in here
-    this.browserOnly(() => {
-      am4core.useTheme(am4themes_animated);
-
-      let chart = am4core.create("chartdiv", am4charts.XYChart);
-
-      chart.paddingRight = 20;
-
-      chart.data = this.liveTrades;
-
-      let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-      dateAxis.renderer.grid.template.location = 0;
-
-      let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-      valueAxis.tooltip.disabled = true;
-      valueAxis.renderer.minWidth = 35;
-
-      let series = chart.series.push(new am4charts.ColumnSeries());
-      series.dataFields.dateX = "date";
-      series.dataFields.valueY = "value";
-      series.tooltipText = "{valueY.value}";
-
-      chart.cursor = new am4charts.XYCursor();
-
-      // let scrollbarX = new am4charts.XYChartScrollbar();
-      // scrollbarX.series.push(series);
-      // chart.scrollbarX = scrollbarX;
-
-      this.chart = chart;
-    });
-  }
-
-  ngOnDestroy() {
-    // Clean up chart when the component is removed
-    this.browserOnly(() => {
-      if (this.chart) {
-        this.chart.dispose();
-      }
     });
   }
 }

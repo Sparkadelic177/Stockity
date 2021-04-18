@@ -5,25 +5,21 @@
   <section id="sentimentBox">
     <h1>Social Media Sentiment Score</h1>
     <div class="sentimentBar">
-      <div id="positive">
-          {{positiveSentimentScore}}%
-      </div>
-      <div id="negative">
-        {{negativeSentimentScore}}%
-      </div>
+      <div id="positive">{{ positiveSentimentScore }}%</div>
+      <div id="negative">{{ negativeSentimentScore }}%</div>
     </div>
   </section>
 </section>
-<section class="newsParentSection">
+<section class="newsParentSeÎction">
     <h2>News</h2>
-    <section class="newsSection">
+  <section class="newsSection">
     <div *ngFor="let news of companyNews" class="newsBox">
-        <a href={{news.url}}>
-        <h3 class="newsTitle">{{news.headline}}</h3>
-        <img src={{news.image}} class="newsImage"/>
-        <p class="newsSummary">{{news.summary}}</p>
-    </a>
+      <a href="{{ news.url }}">
+        <h3 class="newsTitle">{{ news.headline }}</h3>
+        <img src="{{ news.image }}" class="newsImage" />
+        <p class="newsSummary">{{ news.summary }}</p>
+      </a>
     </div>
-</section>
+  </section>
 </section>
 <!-- TradingView Widget END -->

@@ -25,6 +25,8 @@
     height:20px;
     color:white;
     text-align: center;
+    border-top-left-radius:  10px;
+    border-bottom-left-radius: 10px;
 }
 
 #negative{
@@ -32,6 +34,8 @@
     height:20px;
     color:white;
     text-align: center;
+    border-top-right-radius:  10px;
+    border-bottom-right-radius: 10px;
 }
 
 .newsSection{
@@ -46,6 +50,8 @@
     border: 1px solid black;
     box-shadow: 5px 5px 5px black;
     margin: 15px 0;
+    padding:10px;
+    cursor: pointer;
 }
 
 .newsBox:hover{
