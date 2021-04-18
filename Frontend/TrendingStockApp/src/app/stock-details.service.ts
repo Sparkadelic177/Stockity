@@ -5,11 +5,14 @@ import { HttpClient} from '@angular/common/http';
   providedIn: 'root'
 })
 export class StockDetailsService {
-
  
   constructor(private _http: HttpClient)  {}
 
   callSentimentScores(url){
+    return this._http.get<any>(url);
+  }
+
+  callTweets(url){
     return this._http.get<any>(url);
   }
 

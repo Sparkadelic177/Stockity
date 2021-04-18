@@ -5,8 +5,8 @@ import { HttpClient} from '@angular/common/http';
   providedIn: 'root'
 })
 export class Page1Service {
-  _url1 ='http://localhost:5000/trending/reddit'
-  _url2 ='http://localhost:5000/trending/twitter'
+  _url1 ='http://localhost:5000/trending/reddit/top'
+  _url2 ='http://localhost:5000/trending/twitter/top'
 
   constructor(private _http: HttpClient) { }
   enroll1()

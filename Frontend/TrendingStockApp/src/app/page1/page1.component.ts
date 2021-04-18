@@ -108,7 +108,7 @@ export class Page1Component implements OnInit {
     console.log("wordCloudUpdate")
     // let scores = [...this.dataLocal , ...this.dataTwitter]
     this.dataLocal.forEach(element => {
-      if(element["Reddit Score"] > 5) {
+      
         var score 
         if(element["Reddit Score"] > 500) {
           score = 500
@@ -126,14 +126,15 @@ export class Page1Component implements OnInit {
         this.data = [...this.data,obj]
         if(this.count < 50) {
           this.count += 1
-        } else {
+        } else {  
           this.count = 0
         }
-      }
+      
             
     })
+    this.cdr.detectChanges()
     this.dataTwitter.forEach(element => {
-      if(element["Twitter Score"] > 5) {
+      
         var score 
         if(element["Twitter Score"] > 500) {
           score = 500
@@ -154,7 +155,7 @@ export class Page1Component implements OnInit {
         } else {
           this.count = 0
         }
-      }      
+            
       
     })
     setTimeout(() => {

@@ -12,6 +12,7 @@ import { TagCloudModule } from 'angular-tag-cloud-module';
 import {AgWordCloudModule, AgWordCloudData} from 'angular4-word-cloud';
 import { HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { NgxTweetModule } from "ngx-tweet";
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +24,7 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     TagCloudModule,
+    NgxTweetModule,
     HttpClientModule,
     AgWordCloudModule.forRoot(),
     FormsModule,

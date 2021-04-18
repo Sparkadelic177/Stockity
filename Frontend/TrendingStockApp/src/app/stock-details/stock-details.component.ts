@@ -25,8 +25,10 @@ export class StockDetailsComponent implements OnInit {
   status;
   positiveSentimentScore = 0;
   negativeSentimentScore = 0;
+  tweets = []
   ticker = localStorage.getItem("ticker");
   private _newsUrl = `https://finnhub.io/api/v1/company-news?symbol=${this.ticker}&from=2021-03-01&to=2021-03-09&token=${environment.api}`
+  private _tweetsUrl = `http://localhost:5000/ticker/${this.ticker}/tweets`
   private _sentimentUrl = `http://localhost:5000/ticker/${this.ticker}/sentiment`
 
   constructor(
@@ -59,6 +61,23 @@ export class StockDetailsComponent implements OnInit {
       }
     )
 
+    this._stockService.callTweets(this._tweetsUrl).subscribe(
+      data => {
+        this.tweets = data
+        this.tweets.forEach(element => {
+          var url = element.url
+          url = url.split('/')
+          url = url[url.length -1]
+          this.tweetUrl.push(url)
+    
+        });
+      }
+    )
+    // setTimeout(() => {
+      
+    //   this.getTweets()
+    // },7000);
+
     //socket service
     this.wsSubscription = this.wsService
       .createOberservableSocket(
@@ -71,6 +90,17 @@ export class StockDetailsComponent implements OnInit {
       );
 
       
+  }
+  tweetUrl = []
+  getTweets() {
+    console.log(this.tweets)
+    this.tweets.forEach(element => {
+      var url = element.url
+      url = url.split('/')
+      url = url[url.length -1]
+      this.tweetUrl.push(url)
+
+    });
   }
 
 

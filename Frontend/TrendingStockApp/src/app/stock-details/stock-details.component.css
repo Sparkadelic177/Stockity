@@ -76,3 +76,14 @@
     font-size: smaller;
     font-style: italic;
 }
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    background-color:rgba(255, 255, 255, 0.8);
+    padding: 10px;
+  }
+  .grid-item {
+    padding: 5px;
+    font-size: 30px;
+    text-align: center;
+  }
