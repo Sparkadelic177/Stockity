@@ -1,10 +1,9 @@
-# TrendingStock
+# Stockity
 Find Stocks that are trending on social media
 
+# Backend
 
-## Backend
-
-### Installation
+## Installation
 
 ##### Initialize a virtual environment
 
@@ -22,17 +21,18 @@ $ source venv/bin/activate
 ##### Install the dependencies
 
 ```
+cd Backend/TrendingStockApp
 $ pip install -r requirements.txt
 ```
 
-##### Running the app
+##### Running the backend server
 
 ```
 $ python app.py
 ```
 
 
-### API Endpoints
+## API Endpoints
 
 1. Get trending Reddit stocks,
 `/trending/reddit` 
@@ -64,3 +64,41 @@ $ python app.py
 10. Get **Top** trending Twitter stocks,(Fetches only those stocks with score>5)
 `/trending/twitter/top`
 
+
+# Frontend
+
+##### Install the dependencies
+
+```
+cd Frontend/TrendingStockApp
+$ npm i
+```
+
+##### Running the client
+
+```
+$ npm install -g @angular/cli
+$ ng serve --open
+```
+
+#### Enviornment Variables
+* Need to retrieve apiKey from https://finnhub.io/ before procedding 
+1. Create an `enviornments` folder inside of `Frontend/TrendingStockApp/src/`
+2. Create a file called `enviornments.ts`
+3. Enter this code in that file you just made
+```
+export const environment = {
+  production: false,
+  api: < finnhub_api_key >,
+  sandboxApi: < finnhub_sandbox_api_key >,
+};
+
+```
+
+## Routes
+
+1. Initial Home Page,
+`/page1`
+
+2. Details Page
+`/stock_details/:stock_ticker`
