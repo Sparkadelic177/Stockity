@@ -18,5 +18,14 @@ Install requirements.txt
 6. Ticker Sentiment Data,
 `/ticker/<ticker_name>/sentiment` 
 
-6. Ticker Chart,
+7. Ticker Chart,
 `/ticker/<ticker_name>/chart` 
+
+8. Ticker Tweets,
+`/ticker/<ticker_name>/tweets` 
+
+9. Get **Top** trending Reddit stocks,(Fetches only those stocks with score>5)
+`/trending/reddit/top` 
+
+10. Get **Top** trending Twitter stocks,(Fetches only those stocks with score>5)
+`/trending/twitter/top`
