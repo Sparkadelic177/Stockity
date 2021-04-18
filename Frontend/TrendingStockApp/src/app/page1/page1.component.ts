@@ -70,29 +70,43 @@ export class Page1Component implements OnInit {
     this.loadData();    
   }
   
-  loadData() {
+  async loadData() {
     console.log("loaddata")
-    this._page1Service.enroll1().subscribe(
-      data=>     
-      {
-        console.log("success",data)
-        this.dataLocal = data        
-      }    
-    ) 
-    this._page1Service.enroll2().subscribe(
-      data=>     
-      {
-        console.log("success",data)
-        this.dataTwitter = data        
-      }    
-    ) 
-    setTimeout(() => {
-      this.wordCloudUpdate()
-      // this.word_cloud_chart.wordData = this.wordData;
-    },4000);
+    try{
+      this.dataLocal = await this._page1Service.enroll1().toPromise()
+    }catch(err){
+      console.log("local data: " + err)
+    }
+    // await this._page1Service.enroll1().subscribe(
+    //   local=>     
+    //   {
+    //     console.log("success",local)
+    //     this.dataLocal = local        
+    //   }    
+    // ) 
+    try{
+      this.dataTwitter = await this._page1Service.enroll2().toPromise()
+    }catch(err){
+      console.log(`data twitter: ${err}`)
+    }
+    // this._page1Service.enroll2().subscribe(
+    //   data=>     
+    //   {
+    //     console.log("success",data)
+    //     this.dataTwitter = data 
+    //     this.wordCloudUpdate(data)       
+    //   }    
+    // ) 
+    this.wordCloudUpdate();
+    // setTimeout(() => {
+      
+    //   // this.word_cloud_chart.wordData = this.wordData;
+    // },4000);
   }
+
   wordCloudUpdate() {
     console.log("wordCloudUpdate")
+    // let scores = [...this.dataLocal , ...this.dataTwitter]
     this.dataLocal.forEach(element => {
       if(element["Reddit Score"] > 5) {
         var score 
